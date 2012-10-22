@@ -115,6 +115,9 @@ if test "x$ac_cv_prog_gcc" = xyes; then
   fi
 fi
 
+STAGE1_CFLAGS="$STAGE1_CFLAGS -fno-strict-aliasing"
+STAGE2_CFLAGS="$STAGE2_CFLAGS -fno-strict-aliasing"
+GRUB_CFLAGS="$GRUB_CFLAGS -fno-strict-aliasing"
 AC_SUBST(STAGE1_CFLAGS)
 AC_SUBST(STAGE2_CFLAGS)
 AC_SUBST(GRUB_CFLAGS)
