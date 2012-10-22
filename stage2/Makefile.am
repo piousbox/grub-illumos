@@ -90,7 +90,7 @@ else
 GRAPHICS_FLAGS =
 endif
 
-STAGE2_COMPILE = $(STAGE2_CFLAGS) -fno-builtin -nostdinc \
+STAGE2_COMPILE = $(STAGE2_CFLAGS) -fno-reorder-functions -fno-builtin -nostdinc \
 	$(NETBOOT_FLAGS) $(SERIAL_FLAGS) $(HERCULES_FLAGS) $(GRAPHICS_FLAGS)
 
 STAGE1_5_LINK = -nostdlib -Wl,-N -Wl,-Ttext -Wl,2000
