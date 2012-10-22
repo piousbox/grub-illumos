@@ -3025,27 +3025,27 @@ int
 amd64_config_cpu(void)
 {
         struct amd64_cpuid_regs __vcr, *vcr = &__vcr;
-        uint32_t maxeax;
-        uint32_t max_maxeax = 0x100;
+        grub_uint32_t maxeax;
+        grub_uint32_t max_maxeax = 0x100;
         char vendor[13];
         int isamd64 = 0;
-        uint32_t stdfeatures = 0, xtdfeatures = 0;
-        uint64_t efer;
+        grub_uint32_t stdfeatures = 0, xtdfeatures = 0;
+        grub_uint64_t efer;
 
         /*
          * This check may seem silly, but if the C preprocesor symbol __amd64
          * is #defined during compilation, something that may outwardly seem
          * like a good idea, uts/common/sys/isa_defs.h will #define _LP64,
-         * which will cause uts/common/sys/int_types.h to typedef uint64_t as
+         * which will cause uts/common/sys/int_types.h to typedef grub_uint64_t as
          * an unsigned long - which is only 4 bytes in size when using a 32-bit
          * compiler.
          *
          * If that happens, all the page table translation routines will fail
-         * horribly, so check the size of uint64_t just to insure some degree
+         * horribly, so check the size of grub_uint64_t just to insure some degree
          * of sanity in future operations.
          */
         /*LINTED [sizeof result is invarient]*/
-        if (sizeof (uint64_t) != 8)
+        if (sizeof (grub_uint64_t) != 8)
                 prom_panic("grub compiled improperly, unable to boot "
                     "64-bit AMD64 executables");
 
@@ -3061,7 +3061,7 @@ amd64_config_cpu(void)
         maxeax = vcr->r_eax;
         {
                 /*LINTED [vendor string from cpuid data]*/
-                uint32_t *iptr = (uint32_t *)vendor;
+                grub_uint32_t *iptr = (grub_uint32_t *)vendor;
 
                 *iptr++ = vcr->r_ebx;
                 *iptr++ = vcr->r_edx;
@@ -3104,8 +3104,8 @@ amd64_config_cpu(void)
         amd64_cpuid_insn(0x80000000, vcr);
 
         if (vcr->r_eax & 0x80000000) {
-                uint32_t xmaxeax = vcr->r_eax;
-                const uint32_t max_xmaxeax = 0x80000100;
+                grub_uint32_t xmaxeax = vcr->r_eax;
+                const grub_uint32_t max_xmaxeax = 0x80000100;
 
                 if (xmaxeax > max_xmaxeax) {
                         grub_printf("amd64: warning, xmaxeax was "

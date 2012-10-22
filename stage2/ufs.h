@@ -23,16 +23,16 @@
 #define	IFREG		0x8000
 #define	IFDIR		0x4000
 
+#include "types.h"
+
 typedef unsigned char	grub_uchar_t;
 typedef	unsigned short	grub_ushort_t;
 typedef	unsigned short	grub_o_mode_t;
 typedef	unsigned short	grub_o_uid_t;
 typedef	unsigned short	grub_o_gid_t;
 typedef	long		grub_ino_t;
-typedef	long		grub_int32_t;
 typedef	long		grub_uid_t;
 typedef	long		grub_gid_t;
-typedef unsigned long	grub_uint32_t;
 typedef unsigned long	grub_daddr32_t;
 typedef	unsigned long	grub_time32_t;
 typedef struct { int val[2]; } grub_quad_t;

@@ -48,14 +48,7 @@
 #ifndef _GRUB_UFS2_H_
 #define _GRUB_UFS2_H_
 
-typedef signed char            grub_int8_t;
-typedef signed short           grub_int16_t;
-typedef signed int             grub_int32_t;
-typedef signed long long int   grub_int64_t;
-typedef unsigned char          grub_uint8_t;
-typedef unsigned short         grub_uint16_t;
-typedef unsigned int           grub_uint32_t;
-typedef unsigned long long int grub_uint64_t;
+#include "types.h"
 
 typedef grub_uint8_t                grub_u_char;
 typedef grub_uint32_t               grub_u_int;

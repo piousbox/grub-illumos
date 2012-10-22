@@ -42,6 +42,7 @@ int grub_stage2 (void);
 #include <sys/time.h>
 #include <termios.h>
 #include <signal.h>
+#include <types.h>
 
 #ifdef __linux__
 # include <sys/ioctl.h>		/* ioctl */
@@ -1284,23 +1285,23 @@ hercules_setcursor (int on)
   return 1;
 }
 
-uint32_t amd64_cpuid_supported(void)
+grub_uint32_t amd64_cpuid_supported(void)
 {
   /* Nothing to do in the simulator. */
 	return (1);
 }
 
-void amd64_cpuid_insn(uint32_t i, void * r)
+void amd64_cpuid_insn(grub_uint32_t i, void * r)
 {
   /* Nothing to do in the simulator. */
 }
 
-void amd64_rdmsr(uint32_t i, uint64_t * p)
+void amd64_rdmsr(grub_uint32_t i, grub_uint64_t * p)
 {
   /* Nothing to do in the simulator. */
 }
 
-void amd64_wrmsr(uint32_t i, const uint64_t * p)
+void amd64_wrmsr(grub_uint32_t i, const grub_uint64_t * p)
 {
   /* Nothing to do in the simulator. */
 }

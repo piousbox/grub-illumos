@@ -30,6 +30,8 @@
 extern "C" {
 #endif
 
+#include "types.h"
+
 typedef unsigned int    uint_t;
 typedef unsigned long ulong_t;
 
@@ -50,20 +52,20 @@ extern ulong_t amd64_get_cr4(void);
 extern ulong_t amd64_get_eflags(void);
 
 struct amd64_cpuid_regs {
-	uint32_t r_eax;
-	uint32_t r_ebx;
-	uint32_t r_ecx;
-	uint32_t r_edx;
+	grub_uint32_t r_eax;
+	grub_uint32_t r_ebx;
+	grub_uint32_t r_ecx;
+	grub_uint32_t r_edx;
 };
 
 #define	AMD64_Auth	0x68747541
 #define	AMD64_enti	0x69746e65
 #define	AMD64_cAMD	0x444d4163
 
-extern uint32_t amd64_cpuid_supported(void);
-extern void amd64_cpuid_insn(uint32_t, struct amd64_cpuid_regs *);
-extern void amd64_rdmsr(uint32_t, uint64_t *);
-extern void amd64_wrmsr(uint32_t, const uint64_t *);
+extern grub_uint32_t amd64_cpuid_supported(void);
+extern void amd64_cpuid_insn(grub_uint32_t, struct amd64_cpuid_regs *);
+extern void amd64_rdmsr(grub_uint32_t, grub_uint64_t *);
+extern void amd64_wrmsr(grub_uint32_t, const grub_uint64_t *);
 extern int get_target_operating_mode(void);
 
 #ifdef	__cplusplus
