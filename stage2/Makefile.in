@@ -479,7 +479,7 @@ noinst_SCRIPTS = $(TESTS)
 
 # For dist target.
 noinst_HEADERS = apic.h defs.h dir.h disk_inode.h disk_inode_ffs.h \
-        fat.h filesys.h freebsd.h fs.h hercules.h i386-elf.h \
+	  fat.h filesys.h freebsd.h fs.h hercules.h i386-elf.h \
 	imgact_aout.h iso9660.h jfs.h mb_header.h mb_info.h md5.h \
 	nbi.h pc_slice.h serial.h shared.h smp-imps.h term.h \
 	terminfo.h tparm.h nbi.h fsys_zfs.h ufs.h ufs2.h vstafs.h xfs.h graphics.h
@@ -3540,22 +3540,22 @@ xfs_stage1_5_exec-bios.obj: bios.c
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xfs_stage1_5_exec_CFLAGS) $(CFLAGS) -c -o xfs_stage1_5_exec-bios.obj `if test -f 'bios.c'; then $(CYGPATH_W) 'bios.c'; else $(CYGPATH_W) '$(srcdir)/bios.c'; fi`
 uninstall-info-am:
 install-pkglibDATA: $(pkglib_DATA)
-      @$(NORMAL_INSTALL)
-      test -z "$(pkglibdir)" || $(mkdir_p) "$(DESTDIR)$(pkglibdir)"
-      @list='$(pkglib_DATA)'; for p in $$list; do \
-        if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-        f=$(am__strip_dir) \
-        echo " $(pkglibDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(pkglibdir)/$$f'"; \
-        $(pkglibDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(pkglibdir)/$$f"; \
-      done
+	@$(NORMAL_INSTALL)
+	test -z "$(pkglibdir)" || $(mkdir_p) "$(DESTDIR)$(pkglibdir)"
+	@list='$(pkglib_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(pkglibDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(pkglibdir)/$$f'"; \
+	  $(pkglibDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(pkglibdir)/$$f"; \
+	done
  
 uninstall-pkglibDATA:
-      @$(NORMAL_UNINSTALL)
-      @list='$(pkglib_DATA)'; for p in $$list; do \
-        f=$(am__strip_dir) \
-        echo " rm -f '$(DESTDIR)$(pkglibdir)/$$f'"; \
-        rm -f "$(DESTDIR)$(pkglibdir)/$$f"; \
-      done
+	@$(NORMAL_UNINSTALL)
+	@list='$(pkglib_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(pkglibdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(pkglibdir)/$$f"; \
+	done
 
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
