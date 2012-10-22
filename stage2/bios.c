@@ -61,7 +61,18 @@ biosdisk (int read, int drive, struct geometry *geometry,
 	unsigned short blocks;
 	unsigned long buffer;
 	unsigned long long block;
-      } __attribute__ ((packed)) dap;
+
+	/* This structure is passed in the stack. A buggy BIOS could write
+	 * garbage data to the tail of the struct and hang the machine. So
+	 * we need this protection. - Tinybit
+	 */
+	unsigned char dummy[16];
+      } __attribute__ ((packed)) *dap;
+
+      /* Even the above protection is not enough to avoid stupid actions by
+       * buggy BIOSes. So we do it in the 0040:0000 segment. - Tinybit
+       */
+      dap = (struct disk_address_packet *)0x580;
 
       /* XXX: Don't check the geometry by default, because some buggy
 	 BIOSes don't return the number of total sectors correctly,
@@ -73,19 +84,20 @@ biosdisk (int read, int drive, struct geometry *geometry,
 
       /* FIXME: sizeof (DAP) must be 0x10. Should assert that the compiler
 	 can't add any padding.  */
-      dap.length = sizeof (dap);
-      dap.block = sector;
-      dap.blocks = nsec;
-      dap.reserved = 0;
+      dap->length = 0x10;
+      dap->block = sector;
+      dap->blocks = nsec;
+      dap->reserved = 0;
       /* This is undocumented part. The address is formated in
 	 SEGMENT:ADDRESS.  */
-      dap.buffer = segment << 16;
-      err = biosdisk_int13_extensions ((read + 0x42) << 8, drive, &dap);
+      dap->buffer = segment << 16;
+       
+      err = biosdisk_int13_extensions ((read + 0x42) << 8, drive, dap);
       /*
        * Try to report errors upwards when the bios has read only part of
        * the requested buffer, but didn't return an error code.
        */
-      if (err == 0 && dap.blocks != nsec)
+      if (err == 0 && dap->blocks != nsec)
 	err = BIOSDISK_ERROR_SHORT_IO;
 
 /* #undef NO_INT13_FALLBACK */
