@@ -21,8 +21,12 @@ AM_INIT_AUTOMAKE
 AC_CANONICAL_HOST
 
 case "$host_cpu" in
-i[[3456]]86) host_cpu=i386 ;;
-x86_64) host_cpu=x86_64 ;;
+i[[3456]]86)
+  STAGE_MARCH="-march=$host_cpu"
+  host_cpu=i386 ;;
+x86_64)
+  STAGE_MARCH="-march=i686"
+  host_cpu=x86_64 ;;
 *) AC_MSG_ERROR([unsupported CPU type]) ;;
 esac
 
@@ -115,8 +119,8 @@ if test "x$ac_cv_prog_gcc" = xyes; then
   fi
 fi
 
-STAGE1_CFLAGS="$STAGE1_CFLAGS -fno-strict-aliasing"
-STAGE2_CFLAGS="$STAGE2_CFLAGS -fno-strict-aliasing"
+STAGE1_CFLAGS="$STAGE1_CFLAGS -fno-strict-aliasing $STAGE_MARCH"
+STAGE2_CFLAGS="$STAGE2_CFLAGS -fno-strict-aliasing $STAGE_MARCH"
 GRUB_CFLAGS="$GRUB_CFLAGS -fno-strict-aliasing"
 AC_SUBST(STAGE1_CFLAGS)
 AC_SUBST(STAGE2_CFLAGS)
