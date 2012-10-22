@@ -4812,7 +4812,7 @@ setup_func (char *arg, int flags)
   char config_filename[64];
   char real_config_filename[64];
   char cmd_arg[256];
-  char device[16];
+  char device[32];
   char *buffer = (char *) RAW_ADDR (0x100000);
   int is_force_lba = 0;
   char *stage2_arg = 0;
@@ -4850,15 +4850,15 @@ setup_func (char *arg, int flags)
 	{
 	  char tmp[16];
 	  grub_sprintf (tmp, ",%d", (partition >> 16) & 0xFF);
-	  grub_strncat (device, tmp, 256);
+	  grub_strncat (device, tmp, sizeof device);
 	}
       if ((partition & 0x00FF00) != 0x00FF00)
 	{
 	  char tmp[16];
 	  grub_sprintf (tmp, ",%c", 'a' + ((partition >> 8) & 0xFF));
-	  grub_strncat (device, tmp, 256);
+	  grub_strncat (device, tmp, sizeof device);
 	}
-      grub_strncat (device, ")", 256);
+      grub_strncat (device, ")", sizeof device);
     }
   
   int embed_stage1_5 (char *stage1_5, int drive, int partition)
