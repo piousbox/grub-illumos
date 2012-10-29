@@ -60,12 +60,7 @@ fi
 
 AC_CHECK_TOOL(CC, gcc)
 AC_PROG_CC
-# We need this for older versions of Autoconf.
-_AM_DEPENDENCIES(CC)
-
-dnl Because recent automake complains about AS, set it here.
-CCAS="$CC"
-AC_SUBST(CCAS)
+AM_PROG_AS
 
 AC_ARG_WITH(binutils,
   [  --with-binutils=DIR     search the directory DIR to find binutils])
