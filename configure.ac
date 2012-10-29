@@ -111,6 +111,20 @@ if test "x$ac_cv_prog_gcc" = xyes; then
     if test "x$no_stack_protector_flag" = xyes; then
       STAGE2_CFLAGS="$STAGE2_CFLAGS -fno-stack-protector"
     fi
+    # Position Independent Executables, but GRUB doesn't want this feature.
+    AC_CACHE_CHECK([whether gcc has -fPIE on as default], grub_cv_cc_fpie, [
+      AC_TRY_COMPILE(,[
+		#if ! defined (__PIC__) || ! defined (__PIE__)
+		#error
+		#endif
+		],
+            grub_cv_cc_fpie=yes,
+            grub_cv_cc_fpie=no)
+    ])
+    if test "x$grub_cv_cc_fpie" = xyes; then
+      STAGE1_CFLAGS="$STAGE1_CFLAGS -nopie"
+      STAGE2_CFLAGS="$STAGE2_CFLAGS -nopie"
+    fi
   fi
 fi
 
